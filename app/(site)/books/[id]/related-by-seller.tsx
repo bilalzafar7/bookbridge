@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { formatPrice } from "@/components/bookswap/styles";
 import type { BookListing } from "@/lib/types";
 
 export function RelatedBySeller({ books }: { books: BookListing[] }) {
@@ -20,7 +21,7 @@ export function RelatedBySeller({ books }: { books: BookListing[] }) {
               referrerPolicy="no-referrer"
             />
             <span className="absolute right-2 top-2 rounded-md bg-blue-600 px-2 py-0.5 text-xs font-bold text-white">
-              ${Math.round(b.price)}
+              {formatPrice(b.price)}
             </span>
           </div>
           <div className="p-3">

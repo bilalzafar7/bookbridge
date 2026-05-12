@@ -1,10 +1,11 @@
 import type { BookCondition } from "@/lib/types";
 
 export function formatPrice(n: number) {
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("en-OM", {
     style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
+    currency: "OMR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 3,
   }).format(n);
 }
 

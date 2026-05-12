@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { formatPrice } from "@/components/bookswap/styles";
 import type { BookCondition } from "@/lib/types";
 
 type CatKey = "cs" | "econ" | "eng";
@@ -62,12 +63,12 @@ function MaxPriceSlider({
         aria-label="Maximum price"
       />
       <div className="mt-1 flex justify-between text-xs text-slate-500">
-        <span>$0</span>
+        <span>{formatPrice(0)}</span>
         <span className="font-medium text-slate-700">
-          ${maxLocal}
+          {formatPrice(maxLocal)}
           {maxLocal >= 200 ? "+" : ""}
         </span>
-        <span>$200+</span>
+        <span>{formatPrice(200)}+</span>
       </div>
     </>
   );

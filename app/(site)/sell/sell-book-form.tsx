@@ -231,11 +231,11 @@ export function SellBookForm() {
             htmlFor="sell-price"
             className="text-xs font-semibold text-slate-700"
           >
-            Price (USD) <span className="text-red-600">*</span>
+            Price (OMR) <span className="text-red-600">*</span>
           </label>
           <div className="mt-1.5 flex rounded-lg border border-slate-200 focus-within:ring-2 focus-within:ring-blue-500">
-            <span className="flex items-center border-r border-slate-200 bg-slate-50 px-3 text-sm text-slate-600">
-              $
+            <span className="flex items-center border-r border-slate-200 bg-slate-50 px-3 text-sm font-medium text-slate-600">
+              OMR
             </span>
             <input
               id="sell-price"
