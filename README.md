@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BookBridge (BookSwap)
 
-## Getting Started
+Next.js app for listing and browsing textbooks: **NextAuth** (email/password), **MongoDB** for users and book listings, **Browse** with filters and pagination, **Sell** (image URL + details), and **Dashboard** (your listings, delete).
 
-First, run the development server:
+## Prerequisites
+
+- **Node.js** 20+ (see `package.json` engines if added)
+- **npm** (or pnpm/yarn)
+- **MongoDB Atlas** cluster (or any MongoDB URI the driver accepts)
+
+## Setup
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Environment variables
+
+Copy the example file and fill in your values:
+
+```bash
+cp .env.example .env.local
+```
+
+Edit **`.env.local`** (this file is gitignored — do not commit secrets):
+
+| Variable | Description |
+|----------|-------------|
+| `MONGODB_URI` | Connection string, e.g. `mongodb+srv://USER:PASSWORD@cluster.mongodb.net/bookbridge?retryWrites=true&w=majority` |
+| `MONGODB_DB` | Database name (default: `bookbridge`) |
+| `AUTH_SECRET` | Random secret for NextAuth sessions: `openssl rand -base64 32` |
+| `AUTH_URL` | App URL in dev: `http://localhost:3000` — in production, your real site URL |
+
+### 3. (Optional) Seed sample listings
+
+Populates the `books` collection for **Browse** (see `scripts/seed-books.ts` for the owner user id used by the seed):
+
+```bash
+npm run seed:books
+```
+
+Requires a valid `MONGODB_URI` in `.env.local`.
+
+## Run locally
+
+**Development** (hot reload):
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Production build** (test locally):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+**Lint:**
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Using the app
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Sign up** at `/signup`, then **log in** at `/login`.
+2. **Browse** at `/browse` — listings load from MongoDB (filter/pagination via URL query params).
+3. **List a book** at `/sell` (must be logged in) — uses a **cover image URL** and saves to your account.
+4. **Dashboard** at `/dashboard` — your listings; **Delete** removes a book you own (also available via `DELETE /api/books/[id]`).
 
-## Deploy on Vercel
+## Tech stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [Next.js](https://nextjs.org) (App Router)
+- [NextAuth.js v5](https://authjs.dev) (`next-auth@beta`)
+- [MongoDB](https://www.mongodb.com/docs/drivers/node/current/) + `mongodb` Node driver
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For framework details, see [Next.js documentation](https://nextjs.org/docs).
